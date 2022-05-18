@@ -3,7 +3,7 @@ const helmet=require("helmet")
 const cors=require("cors")
 const ApiRoute=require("./api/api.js")
 const app=express()
-const PORT= 3009
+const PORT= process.env.PORT || 3009
 
 app.use(cors())
 app.use(helmet())
