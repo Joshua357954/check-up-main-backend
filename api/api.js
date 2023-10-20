@@ -19,13 +19,17 @@ sequelize.authenticate()
 
 //  Logout
 ApiRoute.get('/logout',(req,res)=>{
-	res.status(200).json("LogOut")
+	res.status(200).send("LogOut")
 })
 
 
 // Login
 ApiRoute.post('/login',(req,res)=>{
 	const {username,password}=req.body
+	
+	// Check if password exists
+	const checkUser= await users.findOne({where:{'username':username}})
+
 	res.send("my Login route ...")
 
 })
