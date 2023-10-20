@@ -1,16 +1,6 @@
 require('dotenv').config()
 const { Sequelize,Model,DataTypes}=require('sequelize')
 
-// const { v4 } from "uuid"
-
-// const sequelize=new Sequelize('check-up-two','root','',
-// 	{
-// 		host:"localhost",
-// 		dialect:'mysql'
-// 	}
-
-// )
-
 const sequelize = new Sequelize({
 	dialect:'sqlite',
 	storage:'../database.sqlite'
@@ -59,13 +49,6 @@ messages.init(
 // 	await messages.sync({force:true}) 
 // } 
 // kola()
-
-
-// async function koa (){ 
-// 	await users.sync({ force: true })
-// } 
-// koa()
-
 
 
 messages.hasOne(messages);

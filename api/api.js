@@ -10,32 +10,30 @@ const {SALT} = process.env
 // users.sync({force:true})
 
 sequelize.authenticate()
-
-	.then("connected to database ohh..")
-
+	.then("Connected To Database")
 	.catch((err)=>{
 		console.log(err)
 })
 
 
 
-
+//  Logout
 ApiRoute.get('/logout',(req,res)=>{
-	res.status(200).json("my logout route ...")
-
+	res.status(200).json("LogOut")
 })
 
 
+// Login
 ApiRoute.post('/login',(req,res)=>{
 	const {username,password}=req.body
 	res.send("my Login route ...")
 
 })
 
-// conda case NewWorld NewWORLD
+
+// Register User
 ApiRoute.post('/register',asyncHandler(async(req,res)=>{
 	const {username,password,phone}=(req.body)
-	let hashedPassword=''
 
 	// Hash Password
 	bcrypt.hash(password,12,async function(err,hashed){
@@ -47,25 +45,22 @@ ApiRoute.post('/register',asyncHandler(async(req,res)=>{
 			return res.send(`This user already exists : ${username}`)
 
 		// Creeate new User
-		const NewUser=await users.build({username,password:hashed,phone})
-		NewUser.save()
-		return res.send(`You have Successfully Registered `)
+		const NewUser = await users.create({username,password:hashed,phone})
 
+		return res.send(`You have Successfully Registered `)
 	})
 }))
 
+
+//  Get Users 
 ApiRoute.get('/getUsers',asyncHandler(async(req,res)=>{
 
 	const ALL_USERS = await users.findAll({attributes: ['username']})
 
 	if(!ALL_USERS)return ("error just dae worrri")
 
-	res.json(ALL_USERS)
+	return res.json(ALL_USERS)
 }))
-
-	
-	
-
 
 
 

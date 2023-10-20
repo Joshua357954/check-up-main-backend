@@ -14,7 +14,7 @@ app.use('/api',ApiRoute)
 
 app.get('/',(req,res)=>{
 
-	res.send("Hello my people ..")
+	res.send("Hello From CheckUp")
 
 })
 
