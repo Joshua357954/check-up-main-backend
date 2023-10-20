@@ -10,9 +10,9 @@ app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use('/api/v1/',ApiRoute)
+app.use('/api',ApiRoute)
 
-app.get('/api',(req,res)=>{
+app.get('/',(req,res) => {
 
 	res.send("Hello From CheckUp")
 
