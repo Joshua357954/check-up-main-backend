@@ -24,7 +24,7 @@ ApiRoute.get('/logout',(req,res)=>{
 
 
 // Login
-ApiRoute.post('/login',(req,res)=>{
+ApiRoute.post('/login',async(req,res)=>{
 	const {username,password}=req.body
 	
 	// Check if password exists
