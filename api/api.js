@@ -28,9 +28,21 @@ ApiRoute.post('/login',async(req,res)=>{
 	const {username,password}=req.body
 	
 	// Check if password exists
-	const checkUser= await users.findOne({where:{'username':username}})
+	const user= await users.findOne({where:{'username':username}})
 
-	res.send("my Login route ...")
+	// Check if the user exists
+	if (!user) {
+	return res.status(401).json({ message: 'Authentication Failed' });
+	}
+
+	// Compare the provided password with the hashed password
+	const isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+	if (isPasswordCorrect) 
+		return res.status(200).json({ username });
+	
+	else 
+		return res.status(401).json({ message: 'Authentication Failed' });
 
 })
 
