@@ -8,14 +8,17 @@ const { Sequelize,Model,DataTypes}=require('sequelize')
 
 const connectionString = "postgres://myuni_db_user:flOjE6Ojcc5TUg0RouVKla7phlqrsOt2@dpg-cjgupdj6fquc73b0igug-a.singapore-postgres.render.com/myuni_db"+"?sslmode=require"
 
-const sequelize = new Sequelize(connectionString, {
+const sequelize = process.env.NODE_ENV === 'production' ? new Sequelize(connectionString, {
   pool: {
     max: 10,
     min: 0,
     acquire: 30000,
     idle: 10000,
   },
-});
+}) :  new Sequelize({
+		dialect:'sqlite',
+		storage:'../database.sqlite'
+	})
 
 
 //  Users Model
