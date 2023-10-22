@@ -1,10 +1,21 @@
 require('dotenv').config()
 const { Sequelize,Model,DataTypes}=require('sequelize')
 
-const sequelize = new Sequelize({
-	dialect:'sqlite',
-	storage:'../database.sqlite'
-})
+// const sequelize = new Sequelize({
+// 	dialect:'sqlite',
+// 	storage:'../database.sqlite'
+// })
+
+const connectionString = "postgres://myuni_db_user:flOjE6Ojcc5TUg0RouVKla7phlqrsOt2@dpg-cjgupdj6fquc73b0igug-a.singapore-postgres.render.com/myuni_db"+"?sslmode=require"
+
+const sequelize = new Sequelize(connectionString, {
+  pool: {
+    max: 10,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+});
 
 
 //  Users Model
@@ -58,10 +69,10 @@ users.hasMany(messages)
 messages.belongsTo(users,{foreignKey:'userId'})
 
 
-// async function kola (){ 
-// 	await sequelize.sync({force:true}) 
-// } 
-// kola()
+async function kola (){ 
+	await sequelize.sync({force:true}) 
+} 
+kola()
 
 
 // async function buildIt(){
