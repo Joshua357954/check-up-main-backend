@@ -110,12 +110,12 @@ ApiRoute.post('/sendMessage',async(req,res) => {
 
 })
 
-//  Feedback
+//  Feedbacks
 // get messages
 
 ApiRoute.post('/userMessages',async(req,res) => {
 	const userId = req.body.id
-	const msgs = await messages.findAll({where:userId})
+	const msgs = await messages.findAll({where:{userId}})
 	return res.send(msgs)
 
 })

@@ -72,10 +72,10 @@ users.hasMany(messages)
 messages.belongsTo(users,{foreignKey:'userId'})
 
 
-async function kola (){ 
-	await sequelize.sync({force:true}) 
-} 
-kola()
+// async function kola (){ 
+// 	await sequelize.sync({force:true}) 
+// } 
+// kola()
 
 
 // async function buildIt(){
