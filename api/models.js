@@ -7,61 +7,65 @@ const sequelize = new Sequelize({
 })
 
 
+//  Users Model
+const users = sequelize.define('user',{
 
-const users=sequelize.define('users',{
-	userid:{
-	    type: DataTypes.UUID,
-	    defaultValue:DataTypes.UUIDV4
- 	},
   	username:{
-  		type:DataTypes.STRING(1234),
+  		type:DataTypes.STRING,
   		allowNull:false
   	},
   	password:{
-  		type:DataTypes.STRING(1234),
+  		type:DataTypes.STRING,
   		allowNull:false
   	},
   	phone:{
-  		type:DataTypes.STRING(1234),
+  		type:DataTypes.STRING,
   		allowNull:false
   	}
 
 })
 
+const messages = sequelize.define('Message', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  message: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
 
-class messages extends Model{}
+});
 
-messages.init(
-	{
-	ownerid:{ type: DataTypes.STRING(1234),allowNull:false },
-	messages:{ type: DataTypes.STRING(1234),allowNull:false },
-	password:{ type: DataTypes.STRING(1234),allowNull:false }
-	},
-{
-	sequelize,
-	updatedAt:false
+// //  Message Model
+// class messages extends Model{}
 
-})
+// messages.init(
+// 	{
+// 	message:{ type: DataTypes.STRING(1234),allowNull:false },
+// 	password:{ type: DataTypes.STRING(1234),allowNull:false }
+// 	},
+// {
+// 	sequelize,
+// 	updatedAt:false
 
+// })
+
+
+
+users.hasMany(messages)
+messages.belongsTo(users,{foreignKey:'userId'})
 
 
 // async function kola (){ 
-// 	await messages.sync({force:true}) 
+// 	await sequelize.sync({force:true}) 
 // } 
 // kola()
 
 
-messages.hasOne(messages);
-users.belongsTo(messages, {
-  foreignKey: "userid",
-})
-
-
-
-
-
 // async function buildIt(){
-// 	const solo= await Users.build({username:"solomon",password:"1234567"})
+// 	const solo= await users.build({username:"solomon",password:"1234567"})
 // 	solo.save()
 // }
 	
